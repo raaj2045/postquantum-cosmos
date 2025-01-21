@@ -203,7 +203,7 @@ type keystore struct {
 func newKeystore(kr keyring.Keyring, opts ...Option) keystore {
 	// Default options for keybase
 	options := Options{
-		SupportedAlgos:       SigningAlgoList{hd.Secp256k1},
+		SupportedAlgos:       SigningAlgoList{hd.Secp256k1, hd.Dillithium2},
 		SupportedAlgosLedger: SigningAlgoList{hd.Secp256k1},
 	}
 
@@ -851,4 +851,10 @@ func (ks unsafeKeystore) UnsafeExportPrivKeyHex(uid string) (privkey string, err
 
 func addrHexKeyAsString(address sdk.Address) string {
 	return fmt.Sprintf("%s.%s", hex.EncodeToString(address.Bytes()), addressSuffix)
+}
+
+func setSupportedAlgos(algos SigningAlgoList) Option {
+	return func(options *Options) {
+		options.SupportedAlgos = algos
+	}
 }

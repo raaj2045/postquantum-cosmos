@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
+	"github.com/cosmos/cosmos-sdk/crypto/keys/dillithium"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	kmultisig "github.com/cosmos/cosmos-sdk/crypto/keys/multisig"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
@@ -399,6 +400,10 @@ func DefaultSigVerificationGasConsumer(
 
 	case *secp256r1.PubKey:
 		meter.ConsumeGas(params.SigVerifyCostSecp256r1(), "ante verify: secp256r1")
+		return nil
+
+	case *dillithium.PubKey:
+		meter.ConsumeGas(params.SigVerifyCostSecp256r1(), "ante verify: dillithium")
 		return nil
 
 	case multisig.PubKey:
