@@ -3,19 +3,19 @@ package dillithium
 import (
 	"bytes"
 
-	"github.com/cloudflare/circl/sign/eddilithium2"
+	"github.com/cloudflare/circl/sign/mldsa/mldsa44"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 )
 
-// GenPrivKey generates a new dilithium mode2 private key. It uses operating system randomness.
+// GenPrivKey generates a new mldsa 44 private key. It uses operating system randomness.
 func GenPrivKey() (*PrivKey, error) {
-	_, prkey, err := eddilithium2.GenerateKey(nil)
+	_, prkey, err := mldsa44.GenerateKey(nil)
 	return &PrivKey{Secret: prkey.Bytes()}, err
 }
 
 // PubKey implements SDK PrivKey interface.
 func (m *PrivKey) PubKey() cryptotypes.PubKey {
-	privKey := new(eddilithium2.PrivateKey)
+	privKey := new(mldsa44.PrivateKey)
 
 	if err := privKey.UnmarshalBinary(m.Secret); err != nil {
 		panic(err)
@@ -23,18 +23,13 @@ func (m *PrivKey) PubKey() cryptotypes.PubKey {
 
 	pubKey := privKey.Public()
 
-	edPubKey, ok := pubKey.(*eddilithium2.PublicKey)
+	edPubKey, ok := pubKey.(*mldsa44.PublicKey)
 	if !ok {
-		panic("expected eddilithium2.PublicKey")
+		panic("expected mldsa44.PublicKey")
 	}
 
 	return &PubKey{Key: edPubKey.Bytes()}
 }
-
-// // String implements SDK proto.Message interface.
-// func (m *PrivKey) String() string {
-// 	return fmt.Sprintf("PrivKey(ed25519dilithium2-%X)", m.Secret)
-// }
 
 // Type returns key type name. Implements SDK PrivKey interface.
 func (m *PrivKey) Type() string {
@@ -43,7 +38,7 @@ func (m *PrivKey) Type() string {
 
 // Sign hashes and signs the message usign Dillithium2. Implements sdk.PrivKey interface.
 func (m *PrivKey) Sign(msg []byte) ([]byte, error) {
-	privKey := new(eddilithium2.PrivateKey)
+	privKey := new(mldsa44.PrivateKey)
 
 	if err := privKey.UnmarshalBinary(m.Secret); err != nil {
 		panic(err)
@@ -72,20 +67,3 @@ func (m *PrivKey) Equals(other cryptotypes.LedgerPrivKey) bool {
 	// Compare the underlying secret bytes
 	return bytes.Equal(m.Secret, otherKey.Secret)
 }
-
-// type dilithium2SK struct {
-// 	eddilithium2.PrivateKey
-// }
-
-// Size implements proto.Marshaler interface
-// func (sk *PrivKey) Size() int {
-// 	if sk == nil {
-// 		return 0
-// 	}
-// 	return sk.Secret.Scheme().PrivateKeySize()
-// }
-
-// // Unmarshal implements proto.Marshaler interface
-// func (sk *PrivKey) Unmarshal(bz []byte) error {
-// 	return sk.Secret.UnmarshalBinary(bz)
-// }

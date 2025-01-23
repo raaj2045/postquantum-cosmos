@@ -3,16 +3,11 @@ package dillithium
 import (
 	"bytes"
 
-	"github.com/cloudflare/circl/sign/eddilithium2"
+	"github.com/cloudflare/circl/sign/mldsa/mldsa44"
 	tmcrypto "github.com/tendermint/tendermint/crypto"
 
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 )
-
-// String implements proto.Message interface.
-// func (m *PubKey) String() string {
-// 	return fmt.Sprintf("PubKey(ed25519dilithium2-%X)", m.Bytes())
-// }
 
 // Bytes implements SDK PubKey interface.
 func (m *PubKey) Bytes() []byte {
@@ -50,7 +45,7 @@ func (m *PubKey) Type() string {
 
 // VerifySignature implements SDK PubKey interface.
 func (m *PubKey) VerifySignature(msg []byte, sig []byte) bool {
-	pubKey := new(eddilithium2.PublicKey)
+	pubKey := new(mldsa44.PublicKey)
 
 	if err := pubKey.UnmarshalBinary(m.Key); err != nil {
 		panic(err)
@@ -58,20 +53,3 @@ func (m *PubKey) VerifySignature(msg []byte, sig []byte) bool {
 
 	return pubKey.Scheme().Verify(pubKey, msg, sig, nil)
 }
-
-// type dilithium2PK struct {
-// 	eddilithium2.PublicKey
-// }
-
-// // Size implements proto.Marshaler interface
-// func (pk *PubKey) Size() int {
-// 	if pk == nil {
-// 		return 0
-// 	}
-// 	return pk.Key.Scheme().PublicKeySize()
-// }
-
-// // Unmarshal implements proto.Marshaler interface
-// func (pk *PubKey) Unmarshal(bz []byte) (sign.PublicKey, error) {
-// 	return pk.Key.Scheme().UnmarshalBinaryPublicKey(pk.Bytes())
-// }
