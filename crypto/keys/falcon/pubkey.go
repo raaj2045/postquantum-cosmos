@@ -1,4 +1,4 @@
-package dillithium
+package falcon
 
 import (
 	"bytes"
