@@ -1,0 +1,24 @@
+syntax = "proto3";
+package cosmos.crypto.mldsa;
+
+import "gogoproto/gogo.proto";
+
+
+option go_package                       = "github.com/cosmos/cosmos-sdk/crypto/keys/mldsa44";
+option (gogoproto.messagename_all)      = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.goproto_getters_all)  = false;
+
+// PubKey defines a MLDSA-44 public key.
+// MLDSA-44 is the Cloudflare implementation of CRYSTALS-Dilithium2 post-quantum signature scheme.
+message PubKey {
+  // Point on mldsa44 curve in a compressed representation as specified in section
+  // 4.3.6 of ANSI X9.62: https://webstore.ansi.org/standards/ascx9/ansix9621998
+  bytes key = 1 [(gogoproto.customtype) = "mldsa44.PublicKey"];
+}
+
+// PrivKey defines a MLDSA-44 private key.
+message PrivKey {
+  // secret number serialized using big-endian encoding
+  bytes secret = 1 [(gogoproto.customtype) = "mldsa44.PrivateKey"];
+}

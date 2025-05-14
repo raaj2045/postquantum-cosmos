@@ -1,4 +1,4 @@
-package dillithium
+package mldsa44
 
 import (
 	"bytes"
@@ -7,7 +7,8 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 )
 
-// GenPrivKey generates a new mldsa 44 private key. It uses operating system randomness.
+// GenPrivKey generates a new MLDSA-44 private key. It uses operating system randomness.
+// MLDSA-44 is the Cloudflare implementation of CRYSTALS-Dilithium2 post-quantum signature scheme.
 func GenPrivKey() (*PrivKey, error) {
 	_, prkey, err := mldsa44.GenerateKey(nil)
 	return &PrivKey{Secret: prkey.Bytes()}, err
@@ -33,10 +34,10 @@ func (m *PrivKey) PubKey() cryptotypes.PubKey {
 
 // Type returns key type name. Implements SDK PrivKey interface.
 func (m *PrivKey) Type() string {
-	return "PrivKey(ed25519dilithium2)"
+	return "PrivKeyMLDSA44"
 }
 
-// Sign hashes and signs the message usign Dillithium2. Implements sdk.PrivKey interface.
+// Sign hashes and signs the message using MLDSA-44. Implements sdk.PrivKey interface.
 func (m *PrivKey) Sign(msg []byte) ([]byte, error) {
 	privKey := new(mldsa44.PrivateKey)
 

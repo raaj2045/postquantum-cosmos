@@ -34,7 +34,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Public key for the Dilithium cryptosystem
 type PubKey struct {
-	Key []byte `protobuf:"bytes,1,opt,name=dillithium,proto3" json:"key,omitempty"`
+	Key []byte `protobuf:"bytes,1,opt,name=mldsa44,proto3" json:"key,omitempty"`
 }
 
 func (m *PubKey) Reset()      { *m = PubKey{} }
@@ -121,8 +121,8 @@ func (m *PrivKey) GetSecret() []byte {
 }
 
 func init() {
-	proto.RegisterType((*PubKey)(nil), "cosmos.crypto.dillithium.PubKey")
-	proto.RegisterType((*PrivKey)(nil), "cosmos.crypto.dillithium.PrivKey")
+	proto.RegisterType((*PubKey)(nil), "cosmos.crypto.mldsa44.PubKey")
+	proto.RegisterType((*PrivKey)(nil), "cosmos.crypto.mldsa44.PrivKey")
 }
 
 func init() { proto.RegisterFile("keys.proto", fileDescriptor_9084e97af2346a26) }
@@ -195,7 +195,7 @@ func (this *PubKey) GoString() string {
 		return "nil"
 	}
 	s := make([]string, 0, 5)
-	s = append(s, "&cosmos_crypto_dillithium.PubKey{")
+	s = append(s, "&cosmos_crypto_mldsa44.PubKey{")
 	s = append(s, "Key: "+fmt.Sprintf("%#v", this.Key)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
@@ -205,7 +205,7 @@ func (this *PrivKey) GoString() string {
 		return "nil"
 	}
 	s := make([]string, 0, 5)
-	s = append(s, "&cosmos_crypto_dillithium.PrivKey{")
+	s = append(s, "&cosmos_crypto_mldsa44.PrivKey{")
 	s = append(s, "Secret: "+fmt.Sprintf("%#v", this.Secret)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")

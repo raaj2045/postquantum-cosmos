@@ -1,4 +1,4 @@
-package dillithium
+package mldsa44
 
 import (
 	"bytes"
@@ -8,6 +8,9 @@ import (
 
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 )
+
+// PubKey represents a MLDSA-44 public key
+// MLDSA-44 is the Cloudflare implementation of CRYSTALS-Dilithium2 post-quantum signature scheme
 
 // Bytes implements SDK PubKey interface.
 func (m *PubKey) Bytes() []byte {
@@ -40,7 +43,7 @@ func (m *PubKey) Address() tmcrypto.Address {
 
 // Type returns key type name. Implements SDK PubKey interface.
 func (m *PubKey) Type() string {
-	return "PubKey(ed25519dilithium2)"
+	return "PubKeyMLDSA44"
 }
 
 // VerifySignature implements SDK PubKey interface.

@@ -33,10 +33,10 @@ func (m *PrivKey) PubKey() cryptotypes.PubKey {
 
 // Type returns key type name. Implements SDK PrivKey interface.
 func (m *PrivKey) Type() string {
-	return "PrivKey(ed25519dilithium2)"
+	return "PrivKey(ed25519mldsa44)"
 }
 
-// Sign hashes and signs the message usign Dillithium2. Implements sdk.PrivKey interface.
+// Sign hashes and signs the message usign mldsa44. Implements sdk.PrivKey interface.
 func (m *PrivKey) Sign(msg []byte) ([]byte, error) {
 	privKey := new(mldsa44.PrivateKey)
 
