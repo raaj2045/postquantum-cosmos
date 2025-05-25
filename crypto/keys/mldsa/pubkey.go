@@ -2,6 +2,7 @@ package mldsa
 
 import (
 	"bytes"
+	"log"
 
 	"github.com/cloudflare/circl/sign/mldsa/mldsa44"
 
@@ -39,19 +40,44 @@ func (m *PubKey) Equals(other cryptotypes.PubKey) bool {
 
 // Address returns the address corresponding to the public key.
 func (m *PubKey) Address() cmtcrypto.Address {
-	return cmtcrypto.AddressHash(m.Bytes())
+	log.Printf("MLDSA44 PubKey Address() called")
+
+	if m == nil || m.Key == nil {
+		log.Printf("MLDSA44 PubKey Address() ERROR: public key or Key field is nil")
+		return nil
+	}
+
+	log.Printf("MLDSA44 PubKey Address() public key length: %d", len(m.Key))
+
+	addr := cmtcrypto.AddressHash(m.Bytes())
+	log.Printf("MLDSA44 PubKey Address() generated address: %x", addr)
+
+	return addr
 }
 
 // Type returns the key type name.
 func (m *PubKey) Type() string {
-	return name
+	return "tendermint/PubKeyMLDSA44"
 }
 
 // VerifySignature verifies a signature for a message using the public key.
 func (m *PubKey) VerifySignature(msg, sig []byte) bool {
-	var pk mldsa44.PublicKey
-	if err := pk.UnmarshalBinary(m.Key); err != nil {
+	log.Printf("MLDSA44 PubKey VerifySignature() called")
+
+	if m == nil || m.Key == nil {
+		log.Printf("MLDSA44 PubKey VerifySignature() ERROR: public key or Key field is nil")
 		return false
 	}
-	return mldsa44.Verify(&pk, msg, sig, nil)
+
+	var pk mldsa44.PublicKey
+	// Use UnmarshalBinary() which expects the packed format from MarshalBinary()
+	if err := pk.UnmarshalBinary(m.Key); err != nil {
+		log.Printf("MLDSA44 PubKey VerifySignature() ERROR: failed to unmarshal public key: %v", err)
+		return false
+	}
+
+	result := mldsa44.Verify(&pk, msg, sig, nil)
+	log.Printf("MLDSA44 PubKey VerifySignature() result: %v", result)
+
+	return result
 }
