@@ -413,8 +413,12 @@ proto-all: proto-format proto-lint proto-gen
 
 proto-gen:
 	@echo "Generating Protobuf files"
-	@$(protoImage) sh ./scripts/protocgen.sh 2>&1 | tee protocgen.log | \
-	awk '{print $$0} /contains the reserved field name/ && /tendermint/ {next} 1'
+	@docker run --rm --platform=linux/amd64 \
+		-v $(CURDIR):/workspace \
+		-w /workspace \
+		ghcr.io/cosmos/proto-builder:0.16.0 \
+		sh ./scripts/protocgen.sh 2>&1 | tee protocgen.log | \
+		awk '{print $$0} /contains the reserved field name/ && /tendermint/ {next} 1'
 
 
 proto-swagger-gen:
