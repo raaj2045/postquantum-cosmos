@@ -1,10 +1,10 @@
 syntax = "proto3";
-package cosmos.crypto.mldsa44;
+package cosmos.crypto.mldsa;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/cosmos/cosmos-sdk/crypto/keys/mldsa44";
+option go_package = "github.com/cosmos/cosmos-sdk/crypto/keys/mldsa";
 
 // PubKey defines a mldsa44 public key
 // Key is the compressed form of the pubkey. The first byte depends is a 0x02 byte
