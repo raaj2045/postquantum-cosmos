@@ -1,4 +1,4 @@
-package mldsa44
+package mldsa
 
 import (
 	"encoding/base64"
@@ -131,6 +131,13 @@ func (sk *mldsa44SK) Size() int {
 		return 0
 	}
 	return len(sk.Bytes())
+}
+
+func (sk *mldsa44SK) Bytes() []byte {
+	if sk == nil {
+		return nil
+	}
+	return sk.PrivateKey.Bytes()
 }
 
 // UnmarshalJSON implements customProtobufType.

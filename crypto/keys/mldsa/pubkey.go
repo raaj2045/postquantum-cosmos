@@ -1,4 +1,4 @@
-package mldsa44
+package mldsa
 
 import (
 	"bytes"

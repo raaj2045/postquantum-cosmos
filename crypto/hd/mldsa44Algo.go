@@ -1,10 +1,9 @@
 package hd
 
 import (
-	"github.com/cosmos/cosmos-sdk/crypto/keys/mldsa44"
-	"github.com/cosmos/go-bip39"
-
+	"github.com/cosmos/cosmos-sdk/crypto/keys/mldsa"
 	types "github.com/cosmos/cosmos-sdk/crypto/types"
+	"github.com/cosmos/go-bip39"
 )
 
 const mldsa44Type = PubKeyType("mldsa44")
@@ -29,16 +28,18 @@ func (m mldsa44Algo) Derive() DeriveFn {
 			return masterPriv[:], nil
 		}
 		derivedKey, err := DerivePrivateKeyForPath(masterPriv, ch, hdPath)
-
-		return derivedKey, err
+		if err != nil {
+			return nil, err
+		}
+		return derivedKey, nil
 	}
 }
 
 func (m mldsa44Algo) Generate() GenerateFn {
 	return func(bz []byte) types.PrivKey {
-		key, err := mldsa44.NewPrivKeyFromSecret(bz)
+		key, err := mldsa.NewPrivKeyFromSecret(bz)
 		if err != nil {
-			panic(err)
+			return nil // do not panic, return nil to signal error
 		}
 		return key
 	}
