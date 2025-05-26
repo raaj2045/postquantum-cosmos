@@ -172,6 +172,7 @@ type Params struct {
 	TxSizeCostPerByte      uint64 `protobuf:"varint,3,opt,name=tx_size_cost_per_byte,json=txSizeCostPerByte,proto3" json:"tx_size_cost_per_byte,omitempty"`
 	SigVerifyCostED25519   uint64 `protobuf:"varint,4,opt,name=sig_verify_cost_ed25519,json=sigVerifyCostEd25519,proto3" json:"sig_verify_cost_ed25519,omitempty"`
 	SigVerifyCostSecp256k1 uint64 `protobuf:"varint,5,opt,name=sig_verify_cost_secp256k1,json=sigVerifyCostSecp256k1,proto3" json:"sig_verify_cost_secp256k1,omitempty"`
+	SigVerifyCostMldsa uint64 `protobuf:"varint,6,opt,name=sig_verify_cost_mldsa,json=sigVerifyCostMldsa,proto3" json:"sig_verify_cost_mldsa,omitempty"`
 }
 
 func (m *Params) Reset()         { *m = Params{} }
