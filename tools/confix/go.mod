@@ -5,7 +5,7 @@ go 1.23.5
 require (
 	github.com/cosmos/cosmos-sdk v0.53.0
 	github.com/creachadair/atomicfile v0.3.7
-	github.com/creachadair/tomledit v0.0.27
+	github.com/creachadair/tomledit v0.0.28
 	github.com/pelletier/go-toml/v2 v2.2.4
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.20.1
@@ -13,6 +13,7 @@ require (
 )
 
 require (
+	github.com/cloudflare/circl v1.6.1 // indirect
 	github.com/cometbft/cometbft/api v1.0.0 // indirect
 	github.com/dgraph-io/ristretto/v2 v2.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
