@@ -71,6 +71,11 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	_ "github.com/cosmos/cosmos-sdk/x/upgrade" // import for side-effects
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
+
+	lockandmintmodulev1 "cosmossdk.io/api/cosmos/lockandmint/module/v1"
+
+	_ "github.com/cosmos/cosmos-sdk/x/lockandmint/module"
+	lockandminttypes "github.com/cosmos/cosmos-sdk/x/lockandmint/types"
 )
 
 var (
@@ -122,6 +127,7 @@ var (
 					stakingtypes.ModuleName,
 					authz.ModuleName,
 					epochstypes.ModuleName,
+					lockandminttypes.ModuleName,
 				},
 				EndBlockers: []string{
 					govtypes.ModuleName,
@@ -161,6 +167,7 @@ var (
 					circuittypes.ModuleName,
 					epochstypes.ModuleName,
 					protocolpooltypes.ModuleName,
+					lockandminttypes.ModuleName,
 				},
 				// When ExportGenesis is not specified, the export genesis module order
 				// is equal to the init genesis order
@@ -184,6 +191,7 @@ var (
 					vestingtypes.ModuleName,
 					circuittypes.ModuleName,
 					epochstypes.ModuleName,
+					lockandminttypes.ModuleName,
 				},
 				// Uncomment if you want to set a custom migration order here.
 				// OrderMigrations: []string{},
@@ -287,6 +295,10 @@ var (
 		{
 			Name:   protocolpooltypes.ModuleName,
 			Config: appconfig.WrapAny(&protocolpoolmodulev1.Module{}),
+		},
+		{
+			Name:   lockandminttypes.ModuleName,
+			Config: appconfig.WrapAny(&lockandmintmodulev1.Module{}),
 		},
 	}
 

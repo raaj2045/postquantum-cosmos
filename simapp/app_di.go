@@ -38,6 +38,7 @@ import (
 	feegrantkeeper "github.com/cosmos/cosmos-sdk/x/feegrant/keeper"
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	groupkeeper "github.com/cosmos/cosmos-sdk/x/group/keeper" //nolint:staticcheck // deprecated and to be removed
+	lockandmintkeeper "github.com/cosmos/cosmos-sdk/x/lockandmint/keeper"
 	mintkeeper "github.com/cosmos/cosmos-sdk/x/mint/keeper"
 	nftkeeper "github.com/cosmos/cosmos-sdk/x/nft/keeper" //nolint:staticcheck // deprecated and to be removed
 	protocolpoolkeeper "github.com/cosmos/cosmos-sdk/x/protocolpool/keeper"
@@ -84,6 +85,7 @@ type SimApp struct {
 	NFTKeeper          nftkeeper.Keeper
 	EpochsKeeper       epochskeeper.Keeper
 	ProtocolPoolKeeper protocolpoolkeeper.Keeper
+	LockAndMintKeeper  lockandmintkeeper.Keeper
 
 	// simulation manager
 	sm *module.SimulationManager
@@ -184,6 +186,7 @@ func NewSimApp(
 		&app.CircuitKeeper,
 		&app.EpochsKeeper,
 		&app.ProtocolPoolKeeper,
+		&app.LockAndMintKeeper,
 	); err != nil {
 		panic(err)
 	}
