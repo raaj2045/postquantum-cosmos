@@ -7,12 +7,13 @@ require (
 	github.com/creachadair/atomicfile v0.3.7
 	github.com/creachadair/tomledit v0.0.27
 	github.com/pelletier/go-toml/v2 v2.2.4
-	github.com/spf13/cobra v1.9.1
+	github.com/spf13/cobra v1.10.1
 	github.com/spf13/viper v1.20.1
 	gotest.tools/v3 v3.5.2
 )
 
 require (
+	github.com/cloudflare/circl v1.6.1 // indirect
 	github.com/cometbft/cometbft/api v1.0.0 // indirect
 	github.com/dgraph-io/ristretto/v2 v2.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -132,7 +133,7 @@ require (
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.12.0 // indirect
 	github.com/spf13/cast v1.8.0 // indirect
-	github.com/spf13/pflag v1.0.6 // indirect
+	github.com/spf13/pflag v1.0.9 // indirect
 	github.com/stretchr/testify v1.10.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d // indirect
